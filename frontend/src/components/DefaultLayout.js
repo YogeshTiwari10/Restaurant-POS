@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useSelector } from "react-redux";
 import { Layout, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { Logo } from "../assets";
 import Spinner from "./Spinner";
 import {
   MenuUnfoldOutlined,
@@ -35,16 +36,17 @@ const DefaultLayout = ({children}) =>  {
       <Layout>
         {loading && <Spinner />}
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="logo">
-            <h1 className="text-center text-light font-wight-bold mt-4">Done N Dusted</h1>
+          <div className="logo" style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+            <img src={Logo} style={{width:"80px", borderRadius:"20px", marginTop:"10px"}}/>
+            <h1 className="text-center text-light font-wight-bold mt-4">GROCERY MANAGEMENT SYSTEM</h1>
           </div>
           <Menu
             theme="dark"
             mode="inline"
             defaultSelectedKeys={window.location.pathname}
           >
-            <Menu.Item key="/" icon={<HomeOutlined />}>
-              <Link to="/" style={{textDecoration:"none"}}>Home</Link>
+            <Menu.Item key="/home" icon={<HomeOutlined />}>
+              <Link to="/home" style={{textDecoration:"none"}}>Home</Link>
             </Menu.Item>
             <Menu.Item key="/customers" icon={<FormOutlined />}>
               <Link to="/cart" style={{textDecoration:"none"}}> Create Bill</Link>
@@ -53,7 +55,7 @@ const DefaultLayout = ({children}) =>  {
               <Link to="/bills" style={{textDecoration:"none"}}>Bills</Link>
             </Menu.Item>
             <Menu.Item key="/items" icon={<UnorderedListOutlined />}>
-              <Link to="/items" style={{textDecoration:"none"}}>Food Items</Link>
+              <Link to="/items" style={{textDecoration:"none"}}>Items List</Link>
             </Menu.Item>
             <Menu.Item key="/inventory" icon={<SnippetsOutlined />}>
               <Link to="/inventory" style={{textDecoration:"none"}}>Inventory</Link>

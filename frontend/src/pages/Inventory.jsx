@@ -16,7 +16,7 @@ const Inventory = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      const { data } = await axios.get("http://localhost:8080/api/inventory/get-inventory");
+      const { data } = await axios.get("https://restraunt-pos.onrender.com/api/inventory/get-inventory");
       setItemsData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -37,7 +37,7 @@ const Inventory = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      await axios.post("http://localhost:8080/api/inventory/delete-inventory", { inventoryId: record._id });
+      await axios.post("https://restraunt-pos.onrender.com/api/inventory/delete-inventory", { inventoryId: record._id });
       message.success("Item Deleted Succesfully");
       getAllItems();
       setPopupModal(false);
@@ -87,7 +87,7 @@ const Inventory = () => {
         dispatch({
           type: "SHOW_LOADING",
         });
-        await axios.post("http://localhost:8080/api/inventory/add-inventory", value);
+        await axios.post("https://restraunt-pos.onrender.com/api/inventory/add-inventory", value);
         message.success("Item Added Succesfully");
         getAllItems();
         setPopupModal(false);
@@ -102,7 +102,7 @@ const Inventory = () => {
         dispatch({
           type: "SHOW_LOADING",
         });
-        await axios.put("http://localhost:8080/api/inventory/edit-inventory", {
+        await axios.put("https://restraunt-pos.onrender.com/api/inventory/edit-inventory", {
           ...value,
           inventoryId: editItem._id,
         });

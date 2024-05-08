@@ -7,6 +7,7 @@ import { useReactToPrint } from "react-to-print";
 import axios from "axios";
 import { Modal, Button, Table, message } from "antd";
 import "../styles/InvoiceStyles.css";
+import { Logo } from "../assets";
 const BillsPage = () => {
   const componentRef = useRef();
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const BillsPage = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      const { data } = await axios.get("http://localhost:8080/api/bills/get-bills");
+      const { data } = await axios.get("https://restraunt-pos.onrender.com/api/bills/get-bills");
       setBillsData(data);
       dispatch({ type: "HIDE_LOADING" });
       console.log(data);
@@ -43,7 +44,7 @@ const BillsPage = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      await axios.post("http://localhost:8080/api/bills/delete-bills", { itemId: record._id });
+      await axios.post("https://restraunt-pos.onrender.com/api/bills/delete-bills", { itemId: record._id });
       message.success("Item Deleted Succesfully");
       getAllBills();
       setPopupModal(false);
@@ -112,8 +113,9 @@ const BillsPage = () => {
           <div id="invoice-POS">
             <center id="top">
               <div className="logo" />
-              <div className="info">
-                <h2>Restraunt</h2>
+              <div className="info" style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+                <img src={Logo} style={{width:"80px", borderRadius:"20px", marginTop:"10px"}}/>
+                <h2>Grocery Management System</h2>
                 <p> Contact : 123456 | Dehradun Uttarakhand</p>
               </div>
               {/*End Info*/}

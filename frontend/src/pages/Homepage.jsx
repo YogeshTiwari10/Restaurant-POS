@@ -23,7 +23,7 @@ const Homepage = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      const { data } = await axios.get('http://localhost:8080/api/order/get-order');
+      const { data } = await axios.get('https://restraunt-pos.onrender.com/api/order/get-order');
       setItemsData(data);
       // console.log(data)
       setCount(Object.keys(data).length);
@@ -49,7 +49,7 @@ const Homepage = () => {
         type: "SHOW_LOADING",
       });
       // console.log(record,element)
-      await axios.post("http://localhost:8080/api/order/cartdelete-order", { "orderId": element, "ItemId": record });
+      await axios.post("https://restraunt-pos.onrender.com/api/order/cartdelete-order", { "orderId": element, "ItemId": record });
       message.success("Item Deleted Succesfully");
       dispatch({ type: "HIDE_LOADING" });
       getAllItems();
@@ -65,7 +65,7 @@ const Homepage = () => {
       dispatch({
         type: "SHOW_LOADING",
       });
-      await axios.post("http://localhost:8080/api/order/delete-order", { orderId: record });
+      await axios.post("https://restraunt-pos.onrender.com/api/order/delete-order", { orderId: record });
       // console.log(record)
       getAllItems();
       message.success("Item Deleted Succesfully");
@@ -81,7 +81,7 @@ const Homepage = () => {
   const handleCompletedOrder = async (record, element) => {
     try {
       // console.log(record);
-      await axios.post("http://localhost:8080/api/bills/add-bills", record);
+      await axios.post("https://restraunt-pos.onrender.com/api/bills/add-bills", record);
       message.success("order Generated");
       handleDeleteOrder(record._id);
       navigate("/bills");
@@ -128,7 +128,7 @@ const Homepage = () => {
       return e.name === a
     })
     const b = { "_id": element[0]._id, "name": element[0].name, "price": element[0].price, "category": element[0].category, "date": element[0].date, "quantity": 1 }
-    await axios.post("http://localhost:8080/api/order/itemadd-order", { "order": addmenuitem, "item": b });
+    await axios.post("https://restraunt-pos.onrender.com/api/order/itemadd-order", { "order": addmenuitem, "item": b });
     message.success("order Generated");
     navigate("/");
     setBillPopup(false)
@@ -143,7 +143,7 @@ const Homepage = () => {
         dispatch({
           type: "SHOW_LOADING",
         });
-        const { data } = await axios.get('http://localhost:8080/api/items/get-item');
+        const { data } = await axios.get('https://restraunt-pos.onrender.com/api/items/get-item');
         setFoodItems(data);
         dispatch({ type: "HIDE_LOADING" });
       } catch (error) {
@@ -176,7 +176,7 @@ const Homepage = () => {
     setGetchangeform(false);
     const b = { "_id": getprevitem._id, "name": getprevitem.name, "price": getprevitem.price, "category": getprevitem.category, "date": getprevitem.date, "quantity": getquantity }
     // console.log(b)
-    await axios.post("http://localhost:8080/api/order/edititem-order", { "order": getedititem, "item": b });
+    await axios.post("https://restraunt-pos.onrender.com/api/order/edititem-order", { "order": getedititem, "item": b });
     message.success("Item Edited Successfully");
     navigate("/");
     getAllItems();

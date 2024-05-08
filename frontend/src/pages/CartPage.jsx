@@ -8,8 +8,8 @@ import {
     PlusCircleOutlined,
     MinusCircleOutlined,
 } from "@ant-design/icons";
-import { Table, Button, Modal, message, Form} from "antd";
-const CartPage = ({item}) => {
+import { Table, Button, Modal, message, Form } from "antd";
+const CartPage = ({ item }) => {
     const [subTotal, setSubTotal] = useState(0);
     const [subQuantity, setSubQuantity] = useState(1);
     const [billPopup, setBillPopup] = useState(false);
@@ -147,10 +147,10 @@ const CartPage = ({item}) => {
                 userId: JSON.parse(localStorage.getItem('auth')),
             };
             console.log(newObject);
-            await axios.post("http://localhost:8080/api/order/add-order", newObject);
+            await axios.post("https://restraunt-pos.onrender.com/api/order/add-order", newObject);
             message.success("order Generated");
             dispatch({ type: "CLEAR_CART" });
-            navigate("/");
+            navigate("/home");
         } catch (error) {
             message.error("Something went wrong");
             console.log(error);
@@ -164,7 +164,7 @@ const CartPage = ({item}) => {
                 dispatch({
                     type: "SHOW_LOADING",
                 });
-                const { data } = await axios.get('http://localhost:8080/api/items/get-item');
+                const { data } = await axios.get('https://restraunt-pos.onrender.com/api/items/get-item');
                 setItemsData(data);
                 dispatch({ type: "HIDE_LOADING" });
             } catch (error) {
@@ -175,24 +175,24 @@ const CartPage = ({item}) => {
     }, [dispatch])
 
     //update cart handler
-const handleAddTOCart = () => {
-    const a=document.getElementById("test12345").value
-    console.log(a)
-    const element=itemsData.filter((e)=>{
-       
-            return e.name===a 
-    })
-    dispatch({
-      type: "ADD_TO_CART",
-      payload: { ...element[0], quantity: 1 },
-    });
-  };
+    const handleAddTOCart = () => {
+        const a = document.getElementById("test12345").value
+        console.log(a)
+        const element = itemsData.filter((e) => {
+
+            return e.name === a
+        })
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: { ...element[0], quantity: 1 },
+        });
+    };
 
     return (
         <DefaultLayout>
 
             <div className='us-states'>
-                <input list='us_state'id="test12345" placeholder='Add Food Item' value={state} onChange={e => setState(e.target.value)} required />
+                <input list='us_state' id="test12345" placeholder='Add Item' value={state} onChange={e => setState(e.target.value)} required />
                 <datalist id='us_state'>
                     {itemsData.map((itemsData, i) => (
                         <option key={i} >
@@ -204,7 +204,7 @@ const handleAddTOCart = () => {
             </div>
 
 
-            <h1 style={{marginTop:"4rem"}}>Create Bill</h1>
+            <h1 style={{ marginTop: "4rem" }}>Create Bill</h1>
             <Table columns={columns} dataSource={cartItems} bordered />
             <div className="d-flex flex-column align-items-end">
                 <hr />
